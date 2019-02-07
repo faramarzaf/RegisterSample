@@ -103,6 +103,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
 
                         if (which == 2) {
+                        //    avatar.setVisibility(View.INVISIBLE);
+                            avatar.setImageResource(android.R.color.transparent);
                             dialog.dismiss();
                         }
                     }
