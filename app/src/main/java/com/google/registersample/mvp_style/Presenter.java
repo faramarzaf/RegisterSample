@@ -1,7 +1,5 @@
 package com.google.registersample.mvp_style;
 
-import android.view.Display;
-
 public class Presenter implements Contract.Presenter {
 
     Contract.View view;
@@ -10,26 +8,24 @@ public class Presenter implements Contract.Presenter {
     public void attachView(Contract.View view) {
         this.view = view;
         model.attachPresenter(this);
-
+        model.loadData();
     }
 
     @Override
-    public void getUsername(String user) {
-        model.getUsername(user);
+    public void register(String user, String pass) {
+        model.register(user,pass);
     }
 
     @Override
-    public void getPassWord(String pass) {
-        model.getPassWord(pass);
+    public void userRegistered() {
+        view.userRegistered();
+        model.loadData();
     }
 
     @Override
-    public void onUserReceived(String user) {
-        view.onUserReceived(user);
+    public void onUserLoaded(String user) {
+        view.onUserLoaded(user);
     }
 
-    @Override
-    public void onPassReceived(String pass) {
-        view.onPassReceived(pass);
-    }
+
 }

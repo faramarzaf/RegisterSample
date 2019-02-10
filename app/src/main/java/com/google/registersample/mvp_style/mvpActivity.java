@@ -30,12 +30,12 @@ import java.util.List;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
 
-public class mvpActivity extends AppCompatActivity implements Contract.View , View.OnClickListener {
+public class mvpActivity extends AppCompatActivity implements Contract.View {
 
-    Contract.Presenter presenter = new Presenter();
+    Presenter presenter = new Presenter();
 
     RoundedImageView avatar;
-    TextView choosePic,result;
+    TextView choosePic, result;
     EditText userV, passV;
     AppCompatCheckBox remember;
     Button signIn_btn;
@@ -46,7 +46,16 @@ public class mvpActivity extends AppCompatActivity implements Contract.View , Vi
         setContentView(R.layout.activity_mvp);
         presenter.attachView(this);
         bind();
-        signIn_btn.setOnClickListener(this);
+
+        signIn_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            userRegistered();
+
+            }
+        });
+
         choosePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,25 +67,6 @@ public class mvpActivity extends AppCompatActivity implements Contract.View , Vi
 
     }
 
-    @Override
-    public void onClick(View v) {
-        presenter.getUsername(userV.getText().toString());
-    }
-
-    @Override
-    public void onUserReceived(String user) {
-        String toast = userV.getText().toString();
-        Toast.makeText(this,"User is "+toast ,Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onPassReceived(String pass) {
-
-    }
-
-    private void startAnimation() {
-
-    }
 
     public void showAlertDialog(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -148,4 +138,14 @@ public class mvpActivity extends AppCompatActivity implements Contract.View , Vi
     }
 
 
+    @Override
+    public void userRegistered() {
+        Toast.makeText(this, "Registered", Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onUserLoaded(String user) {
+        Toast.makeText(this, "user is "+user, Toast.LENGTH_SHORT).show();
+    }
 }
