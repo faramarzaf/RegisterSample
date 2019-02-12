@@ -11,13 +11,7 @@ public class Model implements Contract.Model {
 
     @Override
     public void register(String user, String pass) {
-        presenter.userRegistered();
-    }
-
-    @Override
-    public void loadData() {
-
-
+       presenter.onDataReceived(user);
     }
 
 

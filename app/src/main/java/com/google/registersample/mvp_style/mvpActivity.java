@@ -32,7 +32,7 @@ import pl.aprilapps.easyphotopicker.EasyImage;
 
 public class mvpActivity extends AppCompatActivity implements Contract.View {
 
-    Presenter presenter = new Presenter();
+    Presenter presenter = new Presenter(this);
 
     RoundedImageView avatar;
     TextView choosePic, result;
@@ -44,15 +44,13 @@ public class mvpActivity extends AppCompatActivity implements Contract.View {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mvp);
-        presenter.attachView(this);
+
         bind();
 
         signIn_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-            userRegistered();
-
+                presenter.onDataReceived(userV.getText().toString());
             }
         });
 
@@ -118,8 +116,8 @@ public class mvpActivity extends AppCompatActivity implements Contract.View {
     private void bind() {
         avatar = findViewById(R.id.avatar);
         choosePic = findViewById(R.id.choosePic);
-        userV = findViewById(R.id.user);
-        passV = findViewById(R.id.pass);
+        userV = findViewById(R.id.userV);
+        passV = findViewById(R.id.passV);
         remember = findViewById(R.id.remember);
         result = findViewById(R.id.result);
         signIn_btn = findViewById(R.id.signIn_btn);
@@ -137,15 +135,8 @@ public class mvpActivity extends AppCompatActivity implements Contract.View {
         });
     }
 
-
     @Override
-    public void userRegistered() {
-        Toast.makeText(this, "Registered", Toast.LENGTH_SHORT).show();
-
-    }
-
-    @Override
-    public void onUserLoaded(String user) {
-        Toast.makeText(this, "user is "+user, Toast.LENGTH_SHORT).show();
+    public void onDataReceived(String user) {
+        Toast.makeText(this, "Registered\nUser is "+user, Toast.LENGTH_LONG).show();
     }
 }

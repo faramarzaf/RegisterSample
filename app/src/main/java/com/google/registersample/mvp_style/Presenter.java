@@ -4,12 +4,13 @@ public class Presenter implements Contract.Presenter {
 
     Contract.View view;
     Contract.Model model = new Model();
-    @Override
-    public void attachView(Contract.View view) {
+
+    public Presenter(Contract.View view) {
         this.view = view;
         model.attachPresenter(this);
-        model.loadData();
     }
+
+
 
     @Override
     public void register(String user, String pass) {
@@ -17,14 +18,8 @@ public class Presenter implements Contract.Presenter {
     }
 
     @Override
-    public void userRegistered() {
-        view.userRegistered();
-        model.loadData();
-    }
-
-    @Override
-    public void onUserLoaded(String user) {
-        view.onUserLoaded(user);
+    public void onDataReceived(String user) {
+        view.onDataReceived(user);
     }
 
 
